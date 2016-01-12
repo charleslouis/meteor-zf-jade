@@ -1,0 +1,12 @@
+//- TEMPLATE task
+
+li(class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}")
+	if isOwner
+		button.delete &times;
+		input.toggle-checked(type="checkbox" checked=checked)
+		button.toggle-private
+			if private
+				| Private
+			else
+				| Public
+	span.text <strong>#{username}</strong> - #{text}
