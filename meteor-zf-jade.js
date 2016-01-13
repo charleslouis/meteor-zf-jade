@@ -1,4 +1,4 @@
-// METEOR TRAINING using meteorT-simpleTodos.js
+// METEOR ZF JADE FACTORY
 
 
 /*****************************************************************
