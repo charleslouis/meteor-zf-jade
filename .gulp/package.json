@@ -1,0 +1,24 @@
+{
+  "description": "gulp plugins",
+  "repository": "https://github.com/bbmoz/meteor-gulp",
+  "private": true,
+  "devDependencies": {
+    "del": "2.2.0",
+    "gulp": "latest",
+    "gulp-autoprefixer": "3.1.0",
+    "gulp-concat": "2.6.0",
+    "gulp-csslint": "latest",
+    "gulp-cssnano": "^2.1.0",
+    "gulp-jscs": "latest",
+    "gulp-jscs-stylish": "latest",
+    "gulp-jshint": "latest",
+    "gulp-livereload": "3.8.1",
+    "gulp-plumber": "latest",
+    "gulp-rename": "1.2.2",
+    "gulp-sass": "2.0.4",
+    "gulp-sourcemaps": "1.6.0",
+    "gulp-uglify": "1.4.2",
+    "gulp-watch": "0.6.5",
+    "jshint-stylish": "latest"
+  }
+}

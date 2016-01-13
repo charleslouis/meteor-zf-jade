@@ -1,53 +1,34 @@
 'use strict';
 
-var gulp = Meteor.npmRequire('gulp');
+var gulp = require('gulp');
 
-var watch = Meteor.npmRequire('gulp-watch'),
-	sass = Meteor.npmRequire('gulp-sass'),
-    connect = Meteor.npmRequire('gulp-connect'),
-    rename = Meteor.npmRequire('gulp-rename'),
-    sourcemaps = Meteor.npmRequire('gulp-sourcemaps'),
-    livereload = Meteor.npmRequire('gulp-livereload'),
-    concat = Meteor.npmRequire('gulp-concat'),
-    uglify = Meteor.npmRequire('gulp-uglify'),
-    autoprefixer = Meteor.npmRequire('gulp-autoprefixer'),
-    del = Meteor.npmRequire('del');
-
+var watch = require('gulp-watch'),
+	sass = require('gulp-sass'),
+    cssnano = require('gulp-cssnano'),
+    rename = require('gulp-rename'),
+    sourcemaps = require('gulp-sourcemaps'),
+    livereload = require('gulp-livereload'),
+    concat = require('gulp-concat'),
+    uglify = require('gulp-uglify'),
+    autoprefixer = require('gulp-autoprefixer'),
+    del = require('del');
 
 var paths = {
 	'scripts':{
 		front: {
 			sources: [
-				'./client/foundation-apps/js/foundation.core.js',
-				'./client/foundation-apps/js/foundation.util.mediaQuery.js',
-				'./client/foundation-apps/js/foundation.util.box.js',
-				'./client/foundation-apps/js/foundation.util.keyboard.js',
-				'./client/foundation-apps/js/foundation.util.motion.js',
-				'./client/foundation-apps/js/foundation.util.nest.js',
-				'./client/foundation-apps/js/foundation.util.timerAndImageLoader.js',
-				'./client/foundation-apps/js/foundation.util.touch.js',
-				'./client/foundation-apps/js/foundation.util.triggers.js',
-				'./client/foundation-apps/js/foundation.abide.js',
-				'./client/foundation-apps/js/foundation.accordion.js',
-				'./client/foundation-apps/js/foundation.accordionMenu.js',
-				'./client/foundation-apps/js/foundation.drilldown.js',
-				'./client/foundation-apps/js/foundation.dropdown.js',
-				'./client/foundation-apps/js/foundation.dropdownMenu.js',
-				'./client/foundation-apps/js/foundation.equalizer.js',
-				'./client/foundation-apps/js/foundation.interchange.js',
-				'./client/foundation-apps/js/foundation.magellan.js',
-				'./client/foundation-apps/js/foundation.offcanvas.js',
-				'./client/foundation-apps/js/foundation.orbit.js',
-				'./client/foundation-apps/js/foundation.responsiveMenu.js',
-				'./client/foundation-apps/js/foundation.responsiveToggle.js',
-				'./client/foundation-apps/js/foundation.reveal.js',
-				'./client/foundation-apps/js/foundation.slider.js',
-				'./client/foundation-apps/js/foundation.sticky.js',
-				'./client/foundation-apps/js/foundation.tabs.js',
-				'./client/foundation-apps/js/foundation.toggler.js',
-				'./client/foundation-apps/js/foundation.tooltip.js',
-
-				'./client/js/custom/*.js'
+				'./bower_components/modernizr/modernizr.js',
+				'./bower_components/jquery/dist/jquery.js',
+				'./bower_components/jquery-placeholder/jquery.placeholder.js',
+				'./bower_components/jquery.cookie/jquery.cookie.js',
+				'./bower_components/fastclick/lib/fastclick.js',
+				'./bower_components/foundation/js/foundation/foundation.js',
+				'./bower_components/foundation/js/foundation/foundation.dropdown.js',
+				'./bower_components/foundation/js/foundation/foundation.topbar.js',
+				'./bower_components/foundation/js/foundation/foundation.equalizer.js',
+				'./bower_components/clipboard/dist/clipboard.js',
+				'./src/js/custom/copy-clipboard.js',
+				'./src/js/custom/*.js'
 			],
 			output: {
 				folder: './src/js/',
@@ -56,18 +37,17 @@ var paths = {
 		}
 	},
 	'style': {
-		all: './private/styles/*.scss',
-		output: './client/styles/'
+		all: '../private/styles/*.scss',
+		output: '../client/styles/'
 	},
 	'jadeFiles': {
 		templates: [
-			'./client/*.jade',
-			'./private/templates/*.jade',
+			'./src/**/*.jade',
 		]
 	},
 	'html': {
-		distFolder: './client/',
-		distFiles: './*.html'
+		distFolder: './src/',
+		distFiles: './src/**/*.html'
 	}
 };
 
@@ -86,7 +66,7 @@ var paths = {
 gulp.task('sass:dev', function () {
   gulp.src(paths.style.all)
 	.pipe(sourcemaps.init())
-	.pipe(sass())
+	.pipe(sass().on('error', sass.logError))
 	.pipe(gulp.dest(paths.style.output))
 	.pipe(livereload());
 });
@@ -95,6 +75,7 @@ gulp.task('sass:build',function () {
   gulp.src(paths.style.all)
     .pipe(sass())
     .pipe(sass.sync().on('error', sass.logError))
+    .pipe(cssnano())
 	.pipe(gulp.dest(paths.style.output));
 });
 
@@ -127,6 +108,15 @@ gulp.task('jadeHtml', function() {
     }))
     .pipe(gulp.dest(paths.html.distFolder))
     .pipe(livereload());
+});
+
+//-----------   SERVER   ---------------------
+gulp.task('server:start', function() {
+  connect.server({
+    port: 8000,
+    root: './src',
+  });
+  // server close ?
 });
 
 
@@ -162,10 +152,9 @@ gulp.task('watch:jadeHtml', function () {
 gulp.task('watch', [
   'watch:sass',
   // 'watch:lintBack',
-  // 'watch:js',
-  // 'watch:jadeHtml'
+  'watch:js',
+  'watch:jadeHtml'
 ]);
-
 
 //-----------   CLEAN   ---------------------
 gulp.task('cleaning', function () {
@@ -192,22 +181,15 @@ gulp.task('copy', ['cleaning'], function() {
 	.pipe(gulp.dest('./dist/reveal'));	
 });
 
-//-----------   SERVER   ---------------------
-gulp.task('server:start', function() {
-  connect.server({
-    port: 8000,
-    root: './',
-  });
-});
-
 
 // ----------   RUN tasks   ------------------
+// gulp run Keystone
+// gulp.task('runKeystone', shell.task('node keystone.js'));
 
-// default task (watch)
-gulp.task('serve', ['sass:dev'],function () {
+// default task (watch & serve)
+
+gulp.task('default', ['sass:dev'],function () {
 });
 
-// dist task to deploy
 gulp.task('dist', ['jsconcat:build', 'jadeHtml', 'sass:build', 'copy'],function () {
 });
-
