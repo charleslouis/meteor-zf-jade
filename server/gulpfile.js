@@ -4,13 +4,13 @@ var gulp = Meteor.npmRequire('gulp');
 
 var watch = Meteor.npmRequire('gulp-watch'),
 	sass = Meteor.npmRequire('gulp-sass'),
+    connect = Meteor.npmRequire('gulp-connect'),
     rename = Meteor.npmRequire('gulp-rename'),
     sourcemaps = Meteor.npmRequire('gulp-sourcemaps'),
     livereload = Meteor.npmRequire('gulp-livereload'),
     concat = Meteor.npmRequire('gulp-concat'),
     uglify = Meteor.npmRequire('gulp-uglify'),
     autoprefixer = Meteor.npmRequire('gulp-autoprefixer'),
-    foundation-apps = Meteor.npmRequire('foundation-apps'),
     del = Meteor.npmRequire('del');
 
 
@@ -95,7 +95,6 @@ gulp.task('sass:build',function () {
   gulp.src(paths.style.all)
     .pipe(sass())
     .pipe(sass.sync().on('error', sass.logError))
-    .pipe(minifycss())
 	.pipe(gulp.dest(paths.style.output));
 });
 
@@ -128,15 +127,6 @@ gulp.task('jadeHtml', function() {
     }))
     .pipe(gulp.dest(paths.html.distFolder))
     .pipe(livereload());
-});
-
-//-----------   SERVER   ---------------------
-gulp.task('server:start', function() {
-  connect.server({
-    port: 8000,
-    root: './src',
-  });
-  // server close ?
 });
 
 
@@ -202,11 +192,19 @@ gulp.task('copy', ['cleaning'], function() {
 	.pipe(gulp.dest('./dist/reveal'));	
 });
 
+//-----------   SERVER   ---------------------
+gulp.task('server:start', function() {
+  connect.server({
+    port: 8000,
+    root: './',
+  });
+});
+
 
 // ----------   RUN tasks   ------------------
 
 // default task (watch)
-gulp.task('serve', ['watch'],function () {
+gulp.task('serve', ['sass:dev'],function () {
 });
 
 // dist task to deploy
