@@ -1,0 +1,52 @@
+.player-wrapper{
+	@include breakpoint(medium) {
+		-webkit-order: 2; 
+		-ms-order: 2; 
+		order: 2;
+	}
+
+	.card img{
+		background-color: $dark-color; 
+	}
+
+	.title-bar{
+		padding: 0.6rem; 
+	}
+
+	.menu-bar > li > a.icon-only > .iconic{
+		margin: 0;
+	}
+	// .menu-bar > li > a.icon-only{
+	// 	padding-bottom: 0;  
+	// }
+}
+
+
+.player-title{
+	width: 100% ;
+	text-align: center;
+	background-color: $primary-color;
+	color: $white;	
+}
+
+.track-url{
+	span{
+		margin-right: 1rem; 
+	}
+}
+
+.timer{
+	color: $white; 
+}
+
+#popup-volume{
+	@include popup(
+		$width: $popup-width, // Should be an absolute value like px or rem
+		$background: $popup-background, // Background color
+		$radius: $popup-radius, // Border radius
+		$shadow: $popup-shadow, // Box shadow
+		$border: $popup-border // Border
+	);
+	left: auto;
+	right: 0;  
+}

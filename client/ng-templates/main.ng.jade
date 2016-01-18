@@ -1,0 +1,14 @@
+.grid-frame.vertical
+
+	.grid-block.vertical.medium-horizontal
+
+		//- The content block should contain the body of your template's content
+		.grid-block.medium-8.small-12.vertical.player-wrapper
+			.menu-group.dark
+				.menu-group-left
+					ul.icon-left.menu-bar
+						li
+							a(title='Play Radio')
+								img(zf-iconic='', icon='musical-note', size='small', class='iconic-color-secondary')
+								| Live Radio
+				span.timer {{playerTimer | date : format : h:mm:ss}}

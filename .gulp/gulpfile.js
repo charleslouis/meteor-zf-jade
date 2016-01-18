@@ -17,21 +17,19 @@ var paths = {
 	'scripts':{
 		front: {
 			sources: [
-				'./bower_components/modernizr/modernizr.js',
-				'./bower_components/jquery/dist/jquery.js',
-				'./bower_components/jquery-placeholder/jquery.placeholder.js',
-				'./bower_components/jquery.cookie/jquery.cookie.js',
-				'./bower_components/fastclick/lib/fastclick.js',
-				'./bower_components/foundation/js/foundation/foundation.js',
-				'./bower_components/foundation/js/foundation/foundation.dropdown.js',
-				'./bower_components/foundation/js/foundation/foundation.topbar.js',
-				'./bower_components/foundation/js/foundation/foundation.equalizer.js',
-				'./bower_components/clipboard/dist/clipboard.js',
-				'./src/js/custom/copy-clipboard.js',
-				'./src/js/custom/*.js'
+				'../packages/npm-container/.npm/package/node_modules/foundation-apps/js/vendor/iconic.min.js',
+				'../packages/npm-container/.npm/package/node_modules/foundation-apps/js/angular/services/foundation.core.js',
+				'../private/components/iconic/iconic.js',
+				'../packages/npm-container/.npm/package/node_modules/foundation-apps/js/angular/services/foundation.core.animation.js',
+				'../packages/npm-container/.npm/package/node_modules/foundation-apps/js/angular/components/accordion/accordion.js',
+				'../packages/npm-container/.npm/package/node_modules/foundation-apps/js/angular/components/common/common.js',
+				'../packages/npm-container/.npm/package/node_modules/foundation-apps/js/angular/components/popup/popup.js',
+				'../packages/npm-container/.npm/package/node_modules/foundation-apps/js/angular/components/tabs/tabs.js',
+				'../packages/npm-container/.npm/package/node_modules/foundation-apps/js/angular/components/offcanvas/offcanvas.js',
+				'../private/lib/app.js',
 			],
 			output: {
-				folder: './src/js/',
+				folder: '../client/lib/',
 				mainScriptsFile: 'scripts.js'
 			}
 		}
@@ -188,7 +186,7 @@ gulp.task('copy', ['cleaning'], function() {
 
 // default task (watch & serve)
 
-gulp.task('default', ['sass:dev'],function () {
+gulp.task('default', ['sass:dev', 'jsconcat:dev'],function () {
 });
 
 gulp.task('dist', ['jsconcat:build', 'jadeHtml', 'sass:build', 'copy'],function () {
