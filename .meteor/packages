@@ -24,3 +24,4 @@ npm-container
 bbmoz:gulp
 angular
 civilframe:angular-jade
+angular-meteor-auth
