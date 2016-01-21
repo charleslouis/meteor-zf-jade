@@ -5,7 +5,7 @@
 var app = angular.module('app', [
 	'angular-meteor',
 	'angular-meteor.auth',
-	// 'ui.router',
+	'ui.router',
 	// 'ngAnimate',
 	'foundation.core',
 	'foundation.core.animation',	

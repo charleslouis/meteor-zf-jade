@@ -19,13 +19,14 @@ var paths = {
 			sources: [
 				'../packages/npm-container/.npm/package/node_modules/foundation-apps/js/vendor/iconic.min.js',
 				'../packages/npm-container/.npm/package/node_modules/foundation-apps/js/angular/services/foundation.core.js',
-				'../private/components/iconic/iconic.js',
 				'../packages/npm-container/.npm/package/node_modules/foundation-apps/js/angular/services/foundation.core.animation.js',
 				'../packages/npm-container/.npm/package/node_modules/foundation-apps/js/angular/components/accordion/accordion.js',
 				'../packages/npm-container/.npm/package/node_modules/foundation-apps/js/angular/components/common/common.js',
 				'../packages/npm-container/.npm/package/node_modules/foundation-apps/js/angular/components/popup/popup.js',
 				'../packages/npm-container/.npm/package/node_modules/foundation-apps/js/angular/components/tabs/tabs.js',
 				'../packages/npm-container/.npm/package/node_modules/foundation-apps/js/angular/components/offcanvas/offcanvas.js',
+				// '../packages/npm-container/.npm/package/node_modules/foundation-apps/js/angular/components/iconic/iconic.js',
+				'../private/components/iconic/iconic.js',
 				'../private/lib/app.js',
 			],
 			output: {

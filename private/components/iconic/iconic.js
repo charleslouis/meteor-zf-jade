@@ -9,7 +9,7 @@
   // iconic wrapper
   function Iconic() {
     // default path
-    var assetPath = 'public/iconic/svg/smart';
+    var assetPath = '/iconic/svg/smart/';
 
     /**
      * Sets the path used to locate the iconic SVG files

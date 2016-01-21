@@ -25,3 +25,4 @@ bbmoz:gulp
 angular
 civilframe:angular-jade
 angular-meteor-auth
+angularui:angular-ui-router
